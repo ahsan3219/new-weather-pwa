@@ -316,6 +316,7 @@
         .card {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             padding: 16px;
+            padding: 10px;
             text-align: center;
             background-color: #efffe7;
             top: 2%;
@@ -333,6 +334,7 @@
             float: left;
             width: 25%;
             padding: 0 10px;
+            max-width: 300px;
         }
 
         .row {
@@ -342,6 +344,70 @@
         .abc {
             float: right;
             margin: -25% 0 0 5px;
+        }
+
+        .parent {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            /* justify-content: flex-start; */
+        }
+
+        @media (max-width: 800px) {
+            .parent {
+                flex-direction: column;
+            }
+        }
+
+
+
+
+
+
+        @import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
+
+        :root {
+            --primary-color: #00cec9;
+            --bg-color: #dfe6e9;
+            --text-color: white;
+        }
+
+
+        .container1 {
+            background: white;
+            cursor: pointer;
+            border-radius: 15px;
+            position: relative;
+            padding: 25px 30px;
+            color: var(--primary-color);
+        }
+
+        .container1::after {
+            content: '';
+            background: var(--primary-color);
+            border-radius: 15px;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 0;
+            clip-path: circle(10% at 0% 0%);
+            transition: all .3s ease-in;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            transition: all .3s ease-in;
+        }
+
+        .container1:hover::after {
+            clip-path: circle(100%);
+        }
+
+        .container1:hover .content {
+            color: var(--text-color);
         }
     </style>
 
@@ -384,7 +450,7 @@
     </section>
     <footer class="page-footer">
         <div class="container">
-            <small>Made with <span>❤</span> by <a href="https://github.com/ahsan3219" target="_blank">George
+            <small>Made with <span>❤</span> by <a href="https://github.com/ahsan3219" target="_blank">Syed
                     Ahsan Raza</a>
             </small>
         </div>
@@ -458,7 +524,7 @@
                         const li = document.createElement("li");
                         li.classList.add("city");
                         const markup = `
-        <h2 class="city-name" data-name="${name},${sys.country}">
+        <div class="container1"><div class="content"><h2 class="city-name" data-name="${name},${sys.country}">
           <span>${name}</span>
           <sup>${sys.country}</sup>
         </h2>
@@ -468,7 +534,7 @@
                             }">
           <figcaption>${weather[0]["description"]}</figcaption>
         </figure>
-      `;
+</div></div>      `;
                         li.innerHTML = markup;
                         list.appendChild(li);
                     })
@@ -497,14 +563,19 @@
                     
                                 <div class="column">
     <div class="card">
-                                    <span>${moment(eachItem.dt_txt).format("ddd D/M")}</span>
+        <div class="container1"><div class="content"><div class="parent">
+            <span>${moment(eachItem.dt_txt).format("ddd D/M")}</span>
                                 <br/>
                                 <span>${moment(eachItem.dt_txt).format("ha")}</span>
                                 <h1 >${eachItem?.main?.temp.toFixed(0)}°C</h1>
                                 <span>${eachItem?.weather[0].description}</span>
-                                <img class="abc" src="https://openweathermap.org/img/wn/${eachItem?.weather[0]["icon"]}@2x.png"/>
                                 <br />
-                                <span>${eachItem?.main?.temp_min.toFixed(0)}°C - ${eachItem?.main?.temp_min.toFixed(0)}°C </span>
+                                <br><br>
+                                <img class="abc" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${eachItem.weather[0]["icon"]
+                                }.svg"/>
+                            <span><strong>${eachItem?.main?.temp_min.toFixed(0)}°C - ${eachItem?.main?.temp_min.toFixed(0)}°C </strong></span>
+            </div>         </div></div>                 
+        
                       </div>          
                     </div>
                             
